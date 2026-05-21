@@ -1,13 +1,11 @@
 import { Button, Checkbox, Input, InputGroup } from "@/shared/ui"
-import type { FC, SubmitEventHandler } from "react"
+import type { FC } from "react"
 import styles from "./LoginPage.module.css"
 import { useFetcher } from "react-router"
 import type { LoginActionData } from "../model/form-data"
 
 const LoginPage: FC = () => {
   const { Form, state, data } = useFetcher<LoginActionData>()
-
-  console.log({ data })
 
   return (
     <main className={styles.page}>
