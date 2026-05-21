@@ -4,8 +4,17 @@ import clsx from "clsx"
 
 interface Props extends ComponentProps<"button"> {}
 
-const Button: FC<Props> = ({ className, ...rest }) => {
-  return <button className={clsx(styles.button, className)} {...rest} />
+const Button: FC<Props> = ({ className, disabled, ...rest }) => {
+  return (
+    <button
+      className={clsx(
+        styles.button,
+        { [styles.button_disabled]: disabled },
+        className,
+      )}
+      {...rest}
+    />
+  )
 }
 
 export default Button

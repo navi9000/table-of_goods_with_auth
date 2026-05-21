@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { TablePage } from "@/pages/table"
-import { LoginPage } from "@/pages/login"
+import { loginAction, LoginPage } from "@/pages/login"
 import { NotFoundPage } from "@/pages/not-found"
 import type { FC } from "react"
 
@@ -12,6 +12,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+    action: loginAction,
   },
   {
     path: "*",

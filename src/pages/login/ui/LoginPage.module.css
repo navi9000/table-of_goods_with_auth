@@ -1,4 +1,4 @@
-.login-page {
+.page {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -6,7 +6,7 @@
   padding: 24px;
 }
 
-.login-form {
+.form {
   width: min(420px, 100%);
   border: 1px solid #d1d5db;
   border-radius: 24px;
@@ -18,7 +18,7 @@
   gap: 20px;
 }
 
-.login-logo {
+.logo {
   width: 72px;
   height: 72px;
   margin: 0 auto;
@@ -31,30 +31,14 @@
   font-weight: 700;
 }
 
-.login-form h1 {
+.heading {
   font-size: 1.75rem;
   text-align: center;
   color: #111827;
 }
 
-.login-subtitle {
+.subtitle {
   text-align: center;
   color: #6b7280;
   font-size: 1rem;
-}
-
-.login-form button {
-  width: 100%;
-  padding: 14px 16px;
-  border: none;
-  border-radius: 14px;
-  background: var(--color-theme-400);
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.login-form button:hover {
-  background: var(--color-theme-500);
 }

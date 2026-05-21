@@ -13,3 +13,8 @@
 .button:hover {
   background: var(--color-theme-500);
 }
+
+.button_disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
