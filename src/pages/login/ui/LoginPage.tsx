@@ -1,45 +1,48 @@
-import type { FC, FormEvent } from "react"
+import { Button, Checkbox, Input, InputGroup } from "@/shared/ui"
+import type { FC, SubmitEventHandler } from "react"
+import styles from "./LoginPage.module.css"
 
 const LoginPage: FC = () => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault()
   }
 
   return (
-    <main className="login-page">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="login-logo" aria-hidden="true">
+    <main className={styles["login-page"]}>
+      <form className={styles["login-form"]} onSubmit={handleSubmit}>
+        <div className={styles["login-logo"]} aria-hidden="true">
           GT
         </div>
         <h1>Добро пожаловать</h1>
-        <p className="login-subtitle">Пожалуйста, авторизуйтесь</p>
+        <p className={styles["login-subtitle"]}>Пожалуйста, авторизуйтесь</p>
 
-        <label>
-          <span>Электронная почта</span>
-          <input
-            type="email"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
-        </label>
+        <InputGroup
+          label="Электронная почта"
+          input={
+            <Input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+          }
+        />
+        <InputGroup
+          label="Пароль"
+          input={
+            <Input
+              type="password"
+              name="password"
+              placeholder="Ваш пароль"
+              required
+            />
+          }
+        />
+        <InputGroup
+          input={<Checkbox name="remember" label="Запомнить данные" />}
+        />
 
-        <label>
-          <span>Пароль</span>
-          <input
-            type="password"
-            name="password"
-            placeholder="Ваш пароль"
-            required
-          />
-        </label>
-
-        <label className="login-checkbox">
-          <input type="checkbox" name="remember" />
-          <span>Запомнить данные</span>
-        </label>
-
-        <button type="submit">Войти</button>
+        <Button type="submit">Войти</Button>
       </form>
     </main>
   )
