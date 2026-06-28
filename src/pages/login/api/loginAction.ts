@@ -6,7 +6,7 @@ export const loginAction = async ({ request }: { request: Request }) => {
   const formData = await request.formData()
   const email = formData.get("email")
   const password = formData.get("password")
-  const remember = formData.get("remember")
+  // const remember = formData.get("remember")
 
   const validatedData = loginSchema.safeParse({ email, password })
 

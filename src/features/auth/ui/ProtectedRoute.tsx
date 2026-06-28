@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react"
-import { useAuthContext } from "./AuthProvider"
 import { Navigate } from "react-router"
+import { useAuthContext } from "../model/use-auth-context"
 
 interface Props {
   element: ReactNode
