@@ -3,8 +3,10 @@ import { useRef, useState, type FC, type MouseEventHandler } from "react"
 import styles from "./LoginPage.module.css"
 import { useFetcher } from "react-router"
 import type { LoginActionData } from "../model/form-data"
+import { useAuthContext } from "@/features/auth"
 
 const LoginPage: FC = () => {
+  const { setToken } = useAuthContext()
   const { Form, state, data } = useFetcher<LoginActionData>()
   const [passwordInputType, setPasswordInputType] = useState<
     "text" | "password"
@@ -23,6 +25,11 @@ const LoginPage: FC = () => {
     setPasswordInputType((prev) => (prev === "password" ? "text" : "password"))
   }
 
+  if (data?.accessToken) {
+    setToken("test-token")
+    // redirect("/")
+  }
+
   return (
     <main className={styles.page}>
       <Form method="POST" className={styles.form} autoComplete="off">
@@ -33,7 +40,7 @@ const LoginPage: FC = () => {
         <p className={styles.subtitle}>Пожалуйста, авторизуйтесь</p>
 
         <InputGroup
-          label="Электронная почта"
+          label="Имя пользователя"
           input={
             <Input
               ref={emailInputRef}
@@ -43,11 +50,11 @@ const LoginPage: FC = () => {
                   <img src="img/close-icon.svg" alt="close" />
                 </button>
               }
-              name="email"
-              placeholder="you@example.com"
+              name="username"
+              placeholder="John Doe"
             />
           }
-          errors={data?.errors.email?.errors}
+          errors={data?.errors.username?.errors}
         />
         <InputGroup
           label="Пароль"

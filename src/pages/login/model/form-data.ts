@@ -1,7 +1,7 @@
 import z from "zod"
 
 const loginSchema = z.object({
-  email: z.email("Введите валидный email").trim(),
+  username: z.string("Введите логин").trim(),
   password: z
     .string("Введите пароль")
     .min(6, "Пароль должен быть не короче 6 символов")
@@ -14,6 +14,8 @@ type LoginActionErrors = Partial<
 
 export type LoginActionData = {
   errors: LoginActionErrors
+  // success?: true
+  accessToken?: string
 }
 
 export default loginSchema
