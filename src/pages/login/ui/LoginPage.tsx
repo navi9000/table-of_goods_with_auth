@@ -40,47 +40,71 @@ const LoginPage: FC = () => {
         <h1 className={styles.heading}>Добро пожаловать!</h1>
         <p className={styles.subtitle}>Пожалуйста, авторизуйтесь</p>
 
-        <InputGroup
-          label="Имя пользователя"
-          input={
-            <Input
-              ref={emailInputRef}
-              leftSlot={<img src="img/user-icon.svg" alt="user" />}
-              rightSlot={
-                <button onClick={clearUserName}>
-                  <img src="img/close-icon.svg" alt="close" />
-                </button>
+        <div className={styles.userinputcontainer}>
+          <div className={styles.inputfieldscontainer}>
+            <InputGroup
+              label="Имя пользователя"
+              input={
+                <Input
+                  ref={emailInputRef}
+                  leftSlot={
+                    <img
+                      src="img/user-icon.svg"
+                      alt="user"
+                      style={{ marginBlock: "auto" }}
+                    />
+                  }
+                  rightSlot={
+                    <button
+                      onClick={clearUserName}
+                      style={{
+                        display: "flex",
+                        border: "none",
+                        background: "transparent",
+                        justifyContent: "flex-start",
+                      }}
+                    >
+                      <img src="img/close-icon.svg" alt="close" />
+                    </button>
+                  }
+                  name="username"
+                  placeholder="John Doe"
+                />
               }
-              name="username"
-              placeholder="John Doe"
+              errors={data?.errors.username?.errors}
             />
-          }
-          errors={data?.errors.username?.errors}
-        />
-        <InputGroup
-          label="Пароль"
-          input={
-            <Input
-              leftSlot={<img src="img/lock-icon.svg" alt="lock" />}
-              rightSlot={
-                <button onClick={togglePasswordInputType}>
-                  <img src="img/eye-off.svg" alt="eye" />
-                </button>
+            <InputGroup
+              label="Пароль"
+              input={
+                <Input
+                  leftSlot={<img src="img/lock-icon.svg" alt="lock" />}
+                  rightSlot={
+                    <button
+                      onClick={togglePasswordInputType}
+                      style={{
+                        display: "flex",
+                        border: "none",
+                        background: "transparent",
+                      }}
+                    >
+                      <img src="img/eye-off.svg" alt="eye" />
+                    </button>
+                  }
+                  type={passwordInputType}
+                  name="password"
+                  placeholder="Ваш пароль"
+                />
               }
-              type={passwordInputType}
-              name="password"
-              placeholder="Ваш пароль"
+              errors={data?.errors.password?.errors}
             />
-          }
-          errors={data?.errors.password?.errors}
-        />
-        <InputGroup
-          input={<Checkbox name="remember" label="Запомнить данные" />}
-        />
-
-        <Button type="submit" disabled={state !== "idle"}>
-          Войти
-        </Button>
+          </div>
+          <InputGroup
+            input={<Checkbox name="remember" label="Запомнить данные" />}
+          />
+          <Button type="submit" disabled={state !== "idle"}>
+            Войти
+          </Button>
+        </div>
       </Form>
     </main>
   )

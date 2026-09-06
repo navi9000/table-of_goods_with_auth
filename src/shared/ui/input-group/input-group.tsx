@@ -9,8 +9,8 @@ interface Props {
 
 const InputGroup: FC<Props> = ({ input, label, errors }) => {
   return (
-    <label>
-      {label && <span>{label}</span>}
+    <label className={styles.container}>
+      {label && <span className={styles.label}>{label}</span>}
       {input}
       {!!errors?.length && <span className={styles.error}>{errors[0]}</span>}
     </label>

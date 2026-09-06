@@ -1,10 +1,10 @@
 .wrapper {
   display: flex;
   align-items: center;
-  border: 1px solid #d1d5db;
-  border-radius: 14px;
+  border: 1.5px solid #ededed;
   background: #f8fafc;
-  padding: 0 16px;
+  border-radius: 12px;
+  padding: 14px 16px;
 }
 
 .wrapper:focus-within {
@@ -15,13 +15,15 @@
 .leftSlot {
   display: flex;
   align-items: center;
-  margin-right: 8px;
+  margin-right: 12px;
   flex-shrink: 0;
+  height: 24px;
+  width: 24px;
 }
 
 .input {
   flex: 1;
-  padding: 14px 0;
+  padding: 0;
   border: none;
   background: transparent;
   font-size: 1rem;
@@ -34,6 +36,8 @@
 .rightSlot {
   display: flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: 12px;
   flex-shrink: 0;
+  height: 24px;
+  width: 24px;
 }

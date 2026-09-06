@@ -69,3 +69,15 @@
   color: #e0e0e0;
   margin-bottom: 32px;
 }
+
+.inputfieldscontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.userinputcontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

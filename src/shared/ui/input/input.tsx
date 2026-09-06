@@ -10,9 +10,9 @@ interface InputProps extends ComponentProps<"input"> {
 const Input: FC<InputProps> = ({ className, leftSlot, rightSlot, ...rest }) => {
   return (
     <div className={styles.wrapper}>
-      {leftSlot && <div className={styles.leftIcon}>{leftSlot}</div>}
+      {!!leftSlot && <div className={styles.leftSlot}>{leftSlot}</div>}
       <input className={clsx(styles.input, className)} {...rest} />
-      {rightSlot && <div className={styles.rightAction}>{rightSlot}</div>}
+      {!!rightSlot && <div className={styles.rightSlot}>{rightSlot}</div>}
     </div>
   )
 }
