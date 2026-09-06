@@ -7,38 +7,65 @@
 }
 
 .form {
-  width: min(420px, 100%);
-  border: 1px solid #d1d5db;
-  border-radius: 24px;
-  padding: 32px;
-  background: #ffffff;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  width: min(527px, 90%);
+  border-radius: 40px;
+  border: 6px solid #fff;
+  padding-inline: 59px;
+  padding-top: 46px;
+  padding-bottom: 30px;
+  box-shadow: 0 24px 32px 0 rgba(0, 0, 0, 0.04);
+  background: linear-gradient(
+    180deg,
+    rgba(35, 35, 35, 0.03) 0%,
+    rgba(35, 35, 35, 0) 50%
+  );
   display: flex;
   flex-direction: column;
-  gap: 20px;
+}
+
+.logocontainer {
+  margin-inline: auto;
+  box-shadow:
+    0 12px 8px 0 rgba(0, 0, 0, 0.03),
+    0 0 0 2px #fff;
+  background:
+    #fff,
+    linear-gradient(
+      360deg,
+      rgba(35, 35, 35, 0) 50%,
+      rgba(35, 35, 35, 0.06) 100%
+    );
+  border-radius: 100px;
+  width: 52px;
+  height: 52px;
+  position: relative;
+  margin-bottom: 35px;
 }
 
 .logo {
-  width: 72px;
-  height: 72px;
-  margin: 0 auto;
-  display: grid;
-  place-items: center;
-  border-radius: 20px;
-  background: var(--color-theme-400);
-  color: #ffffff;
-  font-size: 1.25rem;
-  font-weight: 700;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
 }
 
 .heading {
-  font-size: 1.75rem;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
   text-align: center;
-  color: #111827;
+  color: #232323;
+  margin-bottom: 10px;
 }
 
 .subtitle {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 150%;
   text-align: center;
-  color: #6b7280;
-  font-size: 1rem;
+  color: #e0e0e0;
+  margin-bottom: 32px;
 }

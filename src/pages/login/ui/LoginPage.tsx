@@ -33,10 +33,11 @@ const LoginPage: FC = () => {
   return (
     <main className={styles.page}>
       <Form method="POST" className={styles.form} autoComplete="off">
-        <div className={styles.logo} aria-hidden="true">
-          GT
+        <div className={styles.logocontainer}>
+          <img className={styles.logo} src="img/login_logo.svg" alt="logo" />
         </div>
-        <h1 className={styles.heading}>Добро пожаловать</h1>
+
+        <h1 className={styles.heading}>Добро пожаловать!</h1>
         <p className={styles.subtitle}>Пожалуйста, авторизуйтесь</p>
 
         <InputGroup
