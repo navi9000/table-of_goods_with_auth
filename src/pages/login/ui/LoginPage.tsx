@@ -62,6 +62,7 @@ const LoginPage: FC = () => {
                         border: "none",
                         background: "transparent",
                         justifyContent: "flex-start",
+                        cursor: "pointer",
                       }}
                     >
                       <img src="img/close-icon.svg" alt="close" />
@@ -85,6 +86,7 @@ const LoginPage: FC = () => {
                         display: "flex",
                         border: "none",
                         background: "transparent",
+                        cursor: "pointer",
                       }}
                     >
                       <img src="img/eye-off.svg" alt="eye" />

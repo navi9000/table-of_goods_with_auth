@@ -14,7 +14,8 @@ const Checkbox: FC<Props> = ({ label, className, ...rest }) => {
         type="checkbox"
         {...rest}
       />
-      {label && <span>Запомнить данные</span>}
+      <span className={styles.box} aria-hidden="true" />
+      {label && <span className={styles.label}>{label}</span>}
     </div>
   )
 }
