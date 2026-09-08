@@ -8,6 +8,7 @@ import type { FC } from "react"
 import { Button, Checkbox, InputGroup } from "@/shared/ui"
 import styles from "./ProductsTable.module.css"
 import type { Product } from "@/entities/model/product"
+import clsx from "clsx"
 
 interface ProductsTableProps {
   data: Product[]
@@ -54,7 +55,14 @@ const columns = columnHelper.columns([
   }),
   columnHelper.accessor("rating", {
     header: "Оценка",
-    cell: ({ getValue }) => `${getValue().toFixed(1)}`,
+    cell: ({ getValue }) => (
+      <span>
+        <span className={clsx({ [styles.danger]: getValue() < 3.5 })}>
+          {getValue().toFixed(1)}
+        </span>
+        /5
+      </span>
+    ),
   }),
   columnHelper.accessor("price", {
     header: "Цена, ₽",

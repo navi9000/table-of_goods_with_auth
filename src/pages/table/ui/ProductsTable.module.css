@@ -73,3 +73,7 @@
 .actions button:last-child {
   color: #dc2626;
 }
+
+.danger {
+  color: #dc2626;
+}
