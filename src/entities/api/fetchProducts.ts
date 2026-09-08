@@ -19,6 +19,7 @@ export const fetchProducts = async (input: FetchProductParams = {}) => {
           page: data.skip / 10 + 1,
           total: data.total as number,
           totalPage: Math.ceil(data.total / 10),
+          limit: data.limit as number,
         },
       },
     }))

@@ -12,6 +12,13 @@ import clsx from "clsx"
 
 interface ProductsTableProps {
   data: Product[]
+  pagination: {
+    page: number
+    total: number
+    totalPage: number
+    limit: number
+  }
+  onPageChange: (page: number) => void
 }
 
 const features = tableFeatures({ rowSelectionFeature })
@@ -79,7 +86,18 @@ const columns = columnHelper.columns([
   }),
 ])
 
-const ProductsTable: FC<ProductsTableProps> = ({ data }) => {
+const ProductsTable: FC<ProductsTableProps> = ({
+  data,
+  pagination,
+  onPageChange,
+}) => {
+  const firstItem =
+    data.length === 0 ? 0 : (pagination.page - 1) * pagination.limit + 1
+  const lastItem = Math.min(
+    pagination.page * pagination.limit,
+    pagination.total,
+  )
+
   const table = useTable({
     data,
     columns,
@@ -118,6 +136,42 @@ const ProductsTable: FC<ProductsTableProps> = ({ data }) => {
           ))}
         </tbody>
       </table>
+      <footer className={styles.footer}>
+        <span>
+          Показано {firstItem}-{lastItem} из {pagination.total}
+        </span>
+        <div className={styles.pagination}>
+          <button
+            type="button"
+            disabled={pagination.page === 1}
+            onClick={() => onPageChange(1)}
+          >
+            {`<<`}
+          </button>
+          <button
+            type="button"
+            disabled={pagination.page === 1}
+            onClick={() => onPageChange(pagination.page - 1)}
+          >
+            {`<`}
+          </button>
+          <span>{pagination.page}</span>
+          <button
+            type="button"
+            disabled={pagination.page === pagination.totalPage}
+            onClick={() => onPageChange(pagination.page + 1)}
+          >
+            {`>`}
+          </button>
+          <button
+            type="button"
+            disabled={pagination.page === pagination.totalPage}
+            onClick={() => onPageChange(pagination.totalPage)}
+          >
+            {`>>`}
+          </button>
+        </div>
+      </footer>
     </div>
   )
 }
