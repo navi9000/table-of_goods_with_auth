@@ -3,6 +3,19 @@
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
+  margin-top: 40px;
+}
+
+.maintop {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+
+.maintopbuttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .table {

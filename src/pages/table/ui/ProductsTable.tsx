@@ -5,7 +5,7 @@ import {
   useTable,
 } from "@tanstack/react-table"
 import type { FC } from "react"
-import { Checkbox } from "@/shared/ui"
+import { Button, Checkbox, InputGroup } from "@/shared/ui"
 import type { Product } from "../model/products"
 import styles from "./ProductsTable.module.css"
 
@@ -20,18 +20,26 @@ const columns = columnHelper.columns([
   columnHelper.display({
     id: "select",
     header: ({ table }) => (
-      <Checkbox
-        aria-label="Выбрать все товары"
-        checked={table.getIsAllRowsSelected()}
-        onChange={table.getToggleAllRowsSelectedHandler()}
+      <InputGroup
+        input={
+          <Checkbox
+            aria-label="Выбрать все товары"
+            checked={table.getIsAllRowsSelected()}
+            onChange={table.getToggleAllRowsSelectedHandler()}
+          />
+        }
       />
     ),
     cell: ({ row }) => (
-      <Checkbox
-        aria-label={`Выбрать ${row.original.name}`}
-        checked={row.getIsSelected()}
-        disabled={!row.getCanSelect()}
-        onChange={row.getToggleSelectedHandler()}
+      <InputGroup
+        input={
+          <Checkbox
+            aria-label={`Выбрать ${row.original.name}`}
+            checked={row.getIsSelected()}
+            disabled={!row.getCanSelect()}
+            onChange={row.getToggleSelectedHandler()}
+          />
+        }
       />
     ),
   }),
@@ -74,6 +82,13 @@ const ProductsTable: FC<ProductsTableProps> = ({ data }) => {
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.maintop}>
+        <h2>Все товары</h2>
+        <div className={styles.maintopbuttons}>
+          <Button onClick={() => table.resetRowSelection()}>Сбросить</Button>
+          <Button>Добавить</Button>
+        </div>
+      </div>
       <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
