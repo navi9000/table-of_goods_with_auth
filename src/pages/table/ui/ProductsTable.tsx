@@ -6,8 +6,8 @@ import {
 } from "@tanstack/react-table"
 import type { FC } from "react"
 import { Button, Checkbox, InputGroup } from "@/shared/ui"
-import type { Product } from "../model/products"
 import styles from "./ProductsTable.module.css"
+import type { Product } from "@/entities/model/product"
 
 interface ProductsTableProps {
   data: Product[]
@@ -34,7 +34,7 @@ const columns = columnHelper.columns([
       <InputGroup
         input={
           <Checkbox
-            aria-label={`Выбрать ${row.original.name}`}
+            aria-label={`Выбрать ${row.original.id}`}
             checked={row.getIsSelected()}
             disabled={!row.getCanSelect()}
             onChange={row.getToggleSelectedHandler()}
@@ -43,13 +43,13 @@ const columns = columnHelper.columns([
       />
     ),
   }),
-  columnHelper.accessor("name", {
+  columnHelper.accessor("title", {
     header: "Наименование",
   }),
-  columnHelper.accessor("vendor", {
+  columnHelper.accessor("brand", {
     header: "Вендор",
   }),
-  columnHelper.accessor("article", {
+  columnHelper.accessor("sku", {
     header: "Артикул",
   }),
   columnHelper.accessor("rating", {
@@ -57,8 +57,7 @@ const columns = columnHelper.columns([
     cell: ({ getValue }) => `${getValue().toFixed(1)}`,
   }),
   columnHelper.accessor("price", {
-    header: "Цена",
-    cell: ({ getValue }) => `${getValue().toLocaleString("ru-RU")} ₽`,
+    header: "Цена, ₽",
   }),
   columnHelper.display({
     id: "actions",

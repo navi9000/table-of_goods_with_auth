@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
-import { TablePage } from "@/pages/table"
+import { listLoader, TablePage } from "@/pages/table"
 import { loginAction, LoginPage } from "@/pages/login"
 import { NotFoundPage } from "@/pages/not-found"
 import type { FC } from "react"
@@ -9,6 +9,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <ProtectedRoute element={<TablePage />} />,
+    loader: listLoader,
   },
   {
     path: "/login",

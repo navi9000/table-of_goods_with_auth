@@ -1,10 +1,13 @@
 import type { FC } from "react"
 import { Search } from "@/shared/ui"
-import { products } from "../model/products"
 import ProductsTable from "./ProductsTable"
 import styles from "./TablePage.module.css"
+import { useLoaderData } from "react-router"
+import type { listLoader } from "../api/listLoader"
 
 const TablePage: FC = () => {
+  const { data, meta } = useLoaderData<typeof listLoader>()
+
   return (
     <main className={styles.page}>
       <header className={styles.header}>
@@ -14,7 +17,7 @@ const TablePage: FC = () => {
         </div>
       </header>
       <section>
-        <ProductsTable data={products} />
+        <ProductsTable data={data} />
       </section>
     </main>
   )
