@@ -3,7 +3,14 @@ import type { Product, FetchProductParams } from "../model/product"
 export const fetchProducts = async (input: FetchProductParams = {}) => {
   const page = input?.page ?? 1
   const sortOrder = input?.sortOrder
-  let requestInfo = "https://dummyjson.com/products?limit=10"
+  const search = input?.search
+  let requestInfo = "https://dummyjson.com/products"
+  if (search) {
+    requestInfo += `/search?q=${search}&limit=10`
+  } else {
+    requestInfo += "?limit=10"
+  }
+
   if (page > 1) {
     requestInfo += `&skip=${page * 10 - 10}`
   }

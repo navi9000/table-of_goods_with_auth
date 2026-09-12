@@ -13,4 +13,5 @@ export interface Product {
 export interface FetchProductParams {
   page?: number
   sortOrder?: "asc" | "desc" | null
+  search?: string
 }

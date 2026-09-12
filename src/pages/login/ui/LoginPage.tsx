@@ -31,8 +31,6 @@ const LoginPage: FC = () => {
     setPasswordInputType((prev) => (prev === "password" ? "text" : "password"))
   }
 
-  console.log({ data })
-
   useEffect(() => {
     if (data?.accessToken && data.refreshToken) {
       authenticate(

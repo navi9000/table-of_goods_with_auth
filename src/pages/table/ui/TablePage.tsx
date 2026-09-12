@@ -1,4 +1,4 @@
-import type { FC } from "react"
+import { useCallback, type FC } from "react"
 import { Button, Search } from "@/shared/ui"
 import ProductsTable from "./ProductsTable"
 import styles from "./TablePage.module.css"
@@ -12,9 +12,17 @@ const TablePage: FC = () => {
 
   const { logout } = useAuthContext()
 
-  const changePage = (page: number) => {
-    setSearchParams({ page: String(page) })
+  const changePage = (pageAsNum: number) => {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev)
+      params.set("page", String(pageAsNum))
+      return params
+    })
   }
+
+  const searchForItems = useCallback((search: string | undefined) => {
+    setSearchParams(search ? { search } : {})
+  }, [])
 
   const onQuit = () => {
     logout()
@@ -25,7 +33,7 @@ const TablePage: FC = () => {
       <header className={styles.header}>
         <h1 className={styles.title}>Товары</h1>
         <div className={styles.search}>
-          <Search />
+          <Search onSearch={searchForItems} />
         </div>
         <div>
           <Button onClick={onQuit}>Выйти</Button>
