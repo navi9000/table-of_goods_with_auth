@@ -9,15 +9,14 @@ import { Button, Checkbox, InputGroup } from "@/shared/ui"
 import styles from "./ProductsTable.module.css"
 import type { Product } from "@/entities/model/product"
 import clsx from "clsx"
+import {
+  getDisplayedProductRange,
+  type ProductsPagination,
+} from "../model/products-table"
 
 interface ProductsTableProps {
   data: Product[]
-  pagination: {
-    page: number
-    total: number
-    totalPage: number
-    limit: number
-  }
+  pagination: ProductsPagination
   onPageChange: (page: number) => void
 }
 
@@ -91,11 +90,9 @@ const ProductsTable: FC<ProductsTableProps> = ({
   pagination,
   onPageChange,
 }) => {
-  const firstItem =
-    data.length === 0 ? 0 : (pagination.page - 1) * pagination.limit + 1
-  const lastItem = Math.min(
-    pagination.page * pagination.limit,
-    pagination.total,
+  const { firstItem, lastItem } = getDisplayedProductRange(
+    data.length,
+    pagination,
   )
 
   const table = useTable({

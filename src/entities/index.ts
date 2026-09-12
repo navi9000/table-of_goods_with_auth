@@ -1,1 +1,1 @@
-export { fetchProducts } from "./api/fetchProducts"
+export { buildProductsUrl, fetchProducts } from "./api/fetchProducts"

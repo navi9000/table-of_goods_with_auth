@@ -22,7 +22,7 @@ const TablePage: FC = () => {
 
   const searchForItems = useCallback((search: string | undefined) => {
     setSearchParams(search ? { search } : {})
-  }, [])
+  }, [setSearchParams])
 
   const onQuit = () => {
     logout()

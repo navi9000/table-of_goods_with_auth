@@ -12,71 +12,46 @@ import {
   type TokenPair,
 } from "./auth-context"
 import { refreshTokenRequest } from "../api/refreshToken"
+import {
+  createAuthSessionStorage,
+  getAccessTokenExpiration,
+  type AuthSessionStorage,
+} from "./auth-session"
 
-const tokenStorageKey = "goods-table-auth-session"
 const refreshMarginMs = 30_000
 const accessTokenLifetimeMs = 15 * 60_000
 
 type StoredSession = TokenPair
 
-const getStoredSession = (): StoredSession | null => {
-  try {
-    const storedValue = localStorage.getItem(tokenStorageKey)
-    if (!storedValue) {
-      return null
-    }
-
-    const session = JSON.parse(storedValue) as Partial<StoredSession>
-    if (
-      typeof session.accessToken !== "string" ||
-      typeof session.refreshToken !== "string" ||
-      !session.accessToken ||
-      !session.refreshToken
-    ) {
-      return null
-    }
-
-    return {
-      accessToken: session.accessToken,
-      refreshToken: session.refreshToken,
-    }
-  } catch {
-    return null
-  }
+export interface AuthProviderProps {
+  sessionStorage?: AuthSessionStorage
+  refreshRequest?: typeof refreshTokenRequest
 }
 
-const getAccessTokenExpiration = (accessToken: string) => {
-  try {
-    const payload = accessToken.split(".")[1]
-    const { exp } = JSON.parse(atob(payload)) as { exp?: number }
-    return typeof exp === "number" ? exp * 1000 : null
-  } catch {
-    return null
-  }
-}
-
-const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [storedSession] = useState<StoredSession | null>(getStoredSession)
+const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
+  children,
+  sessionStorage: providedSessionStorage,
+  refreshRequest = refreshTokenRequest,
+}) => {
+  const [sessionStorage] = useState(
+    () => providedSessionStorage ?? createAuthSessionStorage(),
+  )
+  const [storedSession] = useState<StoredSession | null>(sessionStorage.read)
   const [tokens, setTokens] = useState<TokenPair | null>(storedSession)
   const [remember, setRemember] = useState(Boolean(storedSession))
   const [isInitializing, setIsInitializing] = useState(Boolean(storedSession))
   const refreshInFlight = useRef<Promise<TokenPair> | null>(null)
 
   const clearStoredSession = useCallback(() => {
-    try {
-      localStorage.removeItem(tokenStorageKey)
-    } catch {
-      return
-    }
-  }, [])
+    sessionStorage.clear()
+  }, [sessionStorage])
 
-  const storeSession = useCallback((nextTokens: TokenPair) => {
-    try {
-      localStorage.setItem(tokenStorageKey, JSON.stringify(nextTokens))
-    } catch {
-      return
-    }
-  }, [])
+  const storeSession = useCallback(
+    (nextTokens: TokenPair) => {
+      sessionStorage.write(nextTokens)
+    },
+    [sessionStorage],
+  )
 
   const logout = useCallback(() => {
     setTokens(null)
@@ -88,11 +63,9 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const refresh = useCallback(
     async (refreshToken: string) => {
       if (!refreshInFlight.current) {
-        refreshInFlight.current = refreshTokenRequest(refreshToken).finally(
-          () => {
-            refreshInFlight.current = null
-          },
-        )
+        refreshInFlight.current = refreshRequest(refreshToken).finally(() => {
+          refreshInFlight.current = null
+        })
       }
 
       try {
@@ -102,7 +75,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         throw new Error("Unable to refresh authentication session")
       }
     },
-    [logout],
+    [logout, refreshRequest],
   )
 
   const authenticate = useCallback(

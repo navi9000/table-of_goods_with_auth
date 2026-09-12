@@ -1,10 +1,12 @@
 import type { Product, FetchProductParams } from "../model/product"
 
-export const fetchProducts = async (input: FetchProductParams = {}) => {
+const productsUrl = "https://dummyjson.com/products"
+
+export const buildProductsUrl = (input: FetchProductParams = {}) => {
   const page = input?.page ?? 1
   const sortOrder = input?.sortOrder
   const search = input?.search
-  let requestInfo = "https://dummyjson.com/products"
+  let requestInfo = productsUrl
   if (search) {
     requestInfo += `/search?q=${search}&limit=10`
   } else {
@@ -17,17 +19,36 @@ export const fetchProducts = async (input: FetchProductParams = {}) => {
   if (sortOrder) {
     requestInfo += `&sortBy=title&order=${sortOrder}`
   }
-  return fetch(requestInfo)
-    .then((res) => res.json())
-    .then((data) => ({
-      data: data.products as Product[],
-      meta: {
-        pagination: {
-          page: data.skip / 10 + 1,
-          total: data.total as number,
-          totalPage: Math.ceil(data.total / 10),
-          limit: data.limit as number,
-        },
+
+  return requestInfo
+}
+
+interface ProductsResponse {
+  products: Product[]
+  skip: number
+  total: number
+  limit: number
+}
+
+export const fetchProducts = async (
+  input: FetchProductParams = {},
+  fetchImpl: typeof fetch = fetch,
+) => {
+  const response = await fetchImpl(buildProductsUrl(input))
+  if (!response.ok) {
+    throw new Error("Products request failed")
+  }
+
+  const data = (await response.json()) as ProductsResponse
+  return {
+    data: data.products,
+    meta: {
+      pagination: {
+        page: data.skip / 10 + 1,
+        total: data.total,
+        totalPage: Math.ceil(data.total / 10),
+        limit: data.limit,
       },
-    }))
+    },
+  }
 }

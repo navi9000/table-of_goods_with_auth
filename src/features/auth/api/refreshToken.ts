@@ -4,8 +4,9 @@ type RefreshResponse = Partial<TokenPair>
 
 export const refreshTokenRequest = async (
   refreshToken: string,
+  fetchImpl: typeof fetch = fetch,
 ): Promise<TokenPair> => {
-  const response = await fetch("https://dummyjson.com/auth/refresh", {
+  const response = await fetchImpl("https://dummyjson.com/auth/refresh", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ refreshToken, expiresInMins: 15 }),
