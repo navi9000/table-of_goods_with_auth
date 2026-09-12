@@ -27,7 +27,6 @@ const LoginPage: FC = () => {
 
   if (data?.accessToken) {
     setToken("test-token")
-    // redirect("/")
   }
 
   return (
