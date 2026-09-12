@@ -7,7 +7,11 @@ interface Props {
 }
 
 const ProtectedRoute: FC<Props> = ({ element }) => {
-  const { isAuth } = useAuthContext()
+  const { isAuth, isInitializing } = useAuthContext()
+
+  if (isInitializing) {
+    return null
+  }
 
   if (!isAuth) {
     return <Navigate to="/login" replace />

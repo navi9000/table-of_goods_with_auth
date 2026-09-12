@@ -1,12 +1,18 @@
 import { Button, Checkbox, Input, InputGroup } from "@/shared/ui"
-import { useRef, useState, type FC, type MouseEventHandler } from "react"
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FC,
+  type MouseEventHandler,
+} from "react"
 import styles from "./LoginPage.module.css"
 import { useFetcher } from "react-router"
 import type { LoginActionData } from "../model/form-data"
 import { useAuthContext } from "@/features/auth"
 
 const LoginPage: FC = () => {
-  const { setToken } = useAuthContext()
+  const { authenticate } = useAuthContext()
   const { Form, state, data } = useFetcher<LoginActionData>()
   const [passwordInputType, setPasswordInputType] = useState<
     "text" | "password"
@@ -25,9 +31,14 @@ const LoginPage: FC = () => {
     setPasswordInputType((prev) => (prev === "password" ? "text" : "password"))
   }
 
-  if (data?.accessToken) {
-    setToken("test-token")
-  }
+  useEffect(() => {
+    if (data?.accessToken && data.refreshToken) {
+      authenticate(
+        { accessToken: data.accessToken, refreshToken: data.refreshToken },
+        data.remember ?? false,
+      )
+    }
+  }, [authenticate, data])
 
   return (
     <main className={styles.page}>
@@ -71,7 +82,7 @@ const LoginPage: FC = () => {
                   placeholder="John Doe"
                 />
               }
-              errors={data?.errors.username?.errors}
+              errors={data?.errors?.username?.errors}
             />
             <InputGroup
               label="Пароль"
@@ -96,7 +107,7 @@ const LoginPage: FC = () => {
                   placeholder="Ваш пароль"
                 />
               }
-              errors={data?.errors.password?.errors}
+              errors={data?.errors?.password?.errors}
             />
           </div>
           <InputGroup

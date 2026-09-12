@@ -10,14 +10,14 @@ const TablePage: FC = () => {
   const { data, meta } = useLoaderData<typeof listLoader>()
   const [, setSearchParams] = useSearchParams()
 
-  const { setToken } = useAuthContext()
+  const { logout } = useAuthContext()
 
   const changePage = (page: number) => {
     setSearchParams({ page: String(page) })
   }
 
   const onQuit = () => {
-    setToken(null)
+    logout()
   }
 
   return (

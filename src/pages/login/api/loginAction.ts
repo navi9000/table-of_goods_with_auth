@@ -5,7 +5,7 @@ export const loginAction = async ({ request }: { request: Request }) => {
   const formData = await request.formData()
   const username = formData.get("username")
   const password = formData.get("password")
-  // const remember = formData.get("remember")
+  const remember = formData.get("remember") === "on"
 
   const validatedData = loginSchema.safeParse({ username, password })
 
@@ -13,7 +13,7 @@ export const loginAction = async ({ request }: { request: Request }) => {
     return { errors: z.treeifyError(validatedData.error).properties }
   }
 
-  const { accessToken /*refreshToken*/ } = await fetch(
+  const { accessToken, refreshToken } = await fetch(
     "https://dummyjson.com/auth/login",
     {
       method: "POST",
@@ -27,9 +27,9 @@ export const loginAction = async ({ request }: { request: Request }) => {
     },
   ).then((res) => res.json())
 
-  console.log({ accessToken })
-
   return {
     accessToken,
+    refreshToken,
+    remember,
   }
 }

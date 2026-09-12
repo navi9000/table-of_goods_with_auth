@@ -13,9 +13,10 @@ type LoginActionErrors = Partial<
 >
 
 export type LoginActionData = {
-  errors: LoginActionErrors
-  // success?: true
+  errors?: LoginActionErrors
   accessToken?: string
+  refreshToken?: string
+  remember?: boolean
 }
 
 export default loginSchema
