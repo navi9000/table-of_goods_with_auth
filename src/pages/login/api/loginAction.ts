@@ -12,24 +12,49 @@ export const loginAction = async ({ request }: { request: Request }) => {
   if (validatedData.error) {
     return { errors: z.treeifyError(validatedData.error).properties }
   }
+  try {
+    const { accessToken, refreshToken, message } = await fetch(
+      "https://dummyjson.com/auth/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username,
+          password,
+          expiresInMins: 15,
+        }),
+        credentials: "include",
+      },
+    ).then((res) => res.json())
 
-  const { accessToken, refreshToken } = await fetch(
-    "https://dummyjson.com/auth/login",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username,
-        password,
-        expiresInMins: 15,
-      }),
-      credentials: "include",
-    },
-  ).then((res) => res.json())
+    if (message) {
+      return {
+        errors: {
+          username: {
+            errors: [message],
+          },
+          password: {
+            errors: [message],
+          },
+        },
+      }
+    }
 
-  return {
-    accessToken,
-    refreshToken,
-    remember,
+    return {
+      accessToken,
+      refreshToken,
+      remember,
+    }
+  } catch {
+    return {
+      errors: {
+        username: {
+          errors: ["Неизвестная ошибка"],
+        },
+        password: {
+          errors: ["Неизвестная ошибка"],
+        },
+      },
+    }
   }
 }
