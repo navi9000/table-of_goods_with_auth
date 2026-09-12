@@ -39,8 +39,16 @@ This repository follows Feature-Sliced Design (FSD). Keep the layer boundaries e
 Run the relevant checks after code changes:
 
 - `pnpm install`
-- `pnpm run dev`
-- `pnpm run build`
-- `pnpm run lint`
+- `pnpm dev`
+- `pnpm build`
+- `pnpm lint`
+
+## Testing
+
+- Run the full test suite with `pnpm test`.
+- Use `pnpm test:watch` while developing interactively.
+- Place tests next to the code they cover using the `.test.ts` or `.test.tsx` suffix.
+- Use the existing Vitest and Testing Library setup for unit and component tests.
+- Run focused tests for the changed slice first, then run the full suite before contributing.
 
 When contributing, favor small, layer-correct changes over broad refactors. The project is intentionally structured around slices, and code should remain easy to locate within that pattern.
