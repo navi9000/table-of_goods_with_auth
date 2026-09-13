@@ -137,7 +137,9 @@ const ProductsTable: FC<ProductsTableProps> = ({
       </div>
       <div className={styles.footer}>
         <span>
-          Показано {firstItem}-{lastItem} из {pagination.total}
+          Показано <span className={styles.darker}>{firstItem}</span>-
+          <span className={styles.darker}>{lastItem}</span> из{" "}
+          <span className={styles.darker}>{pagination.total}</span>
         </span>
         <div className={styles.pagination}>
           <button
