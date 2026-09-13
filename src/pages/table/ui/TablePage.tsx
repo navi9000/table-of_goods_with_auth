@@ -20,9 +20,12 @@ const TablePage: FC = () => {
     })
   }
 
-  const searchForItems = useCallback((search: string | undefined) => {
-    setSearchParams(search ? { search } : {})
-  }, [setSearchParams])
+  const searchForItems = useCallback(
+    (search: string | undefined) => {
+      setSearchParams(search ? { search } : {})
+    },
+    [setSearchParams],
+  )
 
   const onQuit = () => {
     logout()
@@ -39,7 +42,7 @@ const TablePage: FC = () => {
           <Button onClick={onQuit}>Выйти</Button>
         </div>
       </header>
-      <section>
+      <section className={styles.content}>
         <ProductsTable
           data={data}
           pagination={meta.pagination}

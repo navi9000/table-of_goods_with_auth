@@ -5,7 +5,7 @@ import {
   useTable,
 } from "@tanstack/react-table"
 import type { FC } from "react"
-import { Button, Checkbox, InputGroup } from "@/shared/ui"
+import { Checkbox, InputGroup } from "@/shared/ui"
 import styles from "./ProductsTable.module.css"
 import type { Product } from "@/entities/model/product"
 import clsx from "clsx"
@@ -105,35 +105,37 @@ const ProductsTable: FC<ProductsTableProps> = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.maintop}>
-        <h2>Все товары</h2>
+        <h2 className={styles.tabletitle}>Все позиции</h2>
         <div className={styles.maintopbuttons}>
-          <Button onClick={() => table.resetRowSelection()}>Сбросить</Button>
-          <Button>Добавить</Button>
+          <button onClick={() => table.resetRowSelection()}>Сбросить</button>
+          <button>Добавить</button>
         </div>
       </div>
-      <table className={styles.table}>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id} scope="col">
-                  {header.isPlaceholder ? null : table.FlexRender({ header })}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getAllCells().map((cell) => (
-                <td key={cell.id}>{table.FlexRender({ cell })}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <footer className={styles.footer}>
+      <div className={styles.tablelist}>
+        <table className={styles.table}>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id} scope="col">
+                    {header.isPlaceholder ? null : table.FlexRender({ header })}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getAllCells().map((cell) => (
+                  <td key={cell.id}>{table.FlexRender({ cell })}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className={styles.footer}>
         <span>
           Показано {firstItem}-{lastItem} из {pagination.total}
         </span>
@@ -168,7 +170,7 @@ const ProductsTable: FC<ProductsTableProps> = ({
             {`>>`}
           </button>
         </div>
-      </footer>
+      </div>
     </div>
   )
 }

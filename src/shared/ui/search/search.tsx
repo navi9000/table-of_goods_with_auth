@@ -10,7 +10,7 @@ interface SearchProps {
 const Search: FC<SearchProps> = ({
   delay = 300,
   onSearch,
-  placeholder = "Поиск товаров",
+  placeholder = "Найти",
 }) => {
   const [value, setValue] = useState("")
 
@@ -22,11 +22,12 @@ const Search: FC<SearchProps> = ({
 
   return (
     <Input
-      aria-label="Поиск товаров"
+      aria-label="Найти"
       onChange={(event) => setValue(event.target.value)}
       placeholder={placeholder}
       type="search"
       value={value}
+      leftSlot={<img src="img/search.svg" alt="search" />}
     />
   )
 }
