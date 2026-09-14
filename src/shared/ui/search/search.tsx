@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from "react"
+import { useEffect, useRef, useState, type FC } from "react"
 import Input from "../input/input"
 
 interface SearchProps {
@@ -13,17 +13,33 @@ const Search: FC<SearchProps> = ({
   placeholder = "Найти",
 }) => {
   const [value, setValue] = useState("")
+  const hasInteracted = useRef(false)
+  const onSearchRef = useRef(onSearch)
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => onSearch?.(value), delay)
+    onSearchRef.current = onSearch
+  }, [onSearch])
+
+  useEffect(() => {
+    if (!hasInteracted.current) {
+      return
+    }
+
+    const timeoutId = window.setTimeout(
+      () => onSearchRef.current?.(value),
+      delay,
+    )
 
     return () => window.clearTimeout(timeoutId)
-  }, [delay, onSearch, value])
+  }, [delay, value])
 
   return (
     <Input
       aria-label="Найти"
-      onChange={(event) => setValue(event.target.value)}
+      onChange={(event) => {
+        hasInteracted.current = true
+        setValue(event.target.value)
+      }}
       placeholder={placeholder}
       type="search"
       value={value}
