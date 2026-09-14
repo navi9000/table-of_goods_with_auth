@@ -1,5 +1,21 @@
-import { describe, expect, it } from "vitest"
+import { render, screen, within } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import { describe, expect, it, vi } from "vitest"
+import type { Product } from "@/entities/model/product"
+import ProductsTable from "./ProductsTable"
 import { getDisplayedProductRange } from "../model/products-table"
+
+const product: Product = {
+  id: 1,
+  title: "Phone",
+  brand: "Brand",
+  category: "phones",
+  images: [],
+  rating: 4.5,
+  sku: "SKU-1",
+  price: 100,
+  availabilityStatus: "In Stock",
+}
 
 describe("getDisplayedProductRange", () => {
   it("returns an empty range for an empty page", () => {
@@ -22,5 +38,36 @@ describe("getDisplayedProductRange", () => {
         limit: 10,
       }),
     ).toEqual({ firstItem: 21, lastItem: 21 })
+  })
+})
+
+describe("ProductsTable sorting headers", () => {
+  it("sorts only the requested columns without adding icons", async () => {
+    const user = userEvent.setup()
+    const onSortChange = vi.fn()
+
+    render(
+      <ProductsTable
+        data={[product]}
+        pagination={{ page: 1, total: 1, totalPage: 1, limit: 10 }}
+        onPageChange={vi.fn()}
+        sortBy={null}
+        sortOrder={null}
+        onSortChange={onSortChange}
+      />,
+    )
+
+    await user.click(screen.getByRole("button", { name: "Наименование" }))
+    await user.click(screen.getByRole("button", { name: "Наименование" }))
+    await user.click(screen.getByRole("button", { name: "Наименование" }))
+
+    expect(onSortChange).toHaveBeenCalledTimes(3)
+    expect(onSortChange).toHaveBeenCalledWith("title")
+
+    const skuHeader = screen.getByRole("columnheader", { name: "Артикул" })
+    expect(within(skuHeader).queryByRole("button")).not.toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "Вендор" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "Оценка" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "Цена, ₽" })).toBeInTheDocument()
   })
 })

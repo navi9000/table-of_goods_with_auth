@@ -8,6 +8,7 @@ import type { FC } from "react"
 import { Checkbox, InputGroup } from "@/shared/ui"
 import styles from "./ProductsTable.module.css"
 import type { Product } from "@/entities/model/product"
+import type { ProductSortField } from "@/entities/model/product"
 import clsx from "clsx"
 import {
   getDisplayedProductRange,
@@ -18,7 +19,17 @@ interface ProductsTableProps {
   data: Product[]
   pagination: ProductsPagination
   onPageChange: (page: number) => void
+  sortBy: ProductSortField | null
+  sortOrder: "asc" | "desc" | null
+  onSortChange: (sortBy: ProductSortField) => void
 }
+
+const sortableColumns = new Set<ProductSortField>([
+  "title",
+  "brand",
+  "rating",
+  "price",
+])
 
 const features = tableFeatures({ rowSelectionFeature })
 const columnHelper = createColumnHelper<typeof features, Product>()
@@ -89,6 +100,9 @@ const ProductsTable: FC<ProductsTableProps> = ({
   data,
   pagination,
   onPageChange,
+  sortBy,
+  sortOrder,
+  onSortChange,
 }) => {
   const { firstItem, lastItem } = getDisplayedProductRange(
     data.length,
@@ -117,8 +131,32 @@ const ProductsTable: FC<ProductsTableProps> = ({
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} scope="col">
-                    {header.isPlaceholder ? null : table.FlexRender({ header })}
+                  <th
+                    key={header.id}
+                    scope="col"
+                    aria-sort={
+                      sortBy === header.id && sortOrder
+                        ? sortOrder === "asc"
+                          ? "ascending"
+                          : "descending"
+                        : undefined
+                    }
+                  >
+                    {header.isPlaceholder ? null : sortableColumns.has(
+                        header.id as ProductSortField,
+                      ) ? (
+                      <button
+                        type="button"
+                        className={styles.sortableHeader}
+                        onClick={() =>
+                          onSortChange(header.id as ProductSortField)
+                        }
+                      >
+                        {table.FlexRender({ header })}
+                      </button>
+                    ) : (
+                      table.FlexRender({ header })
+                    )}
                   </th>
                 ))}
               </tr>

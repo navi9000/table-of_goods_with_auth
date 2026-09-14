@@ -10,8 +10,11 @@ export interface Product {
   availabilityStatus: string
 }
 
+export type ProductSortField = "title" | "brand" | "rating" | "price"
+
 export interface FetchProductParams {
   page?: number
+  sortBy?: ProductSortField
   sortOrder?: "asc" | "desc" | null
   search?: string
 }

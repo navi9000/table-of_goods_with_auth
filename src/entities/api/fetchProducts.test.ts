@@ -15,9 +15,20 @@ describe("buildProductsUrl", () => {
   })
   it("builds a paginated search URL when all parameters were provided", () => {
     expect(
-      buildProductsUrl({ page: 2, search: "phone", sortOrder: "desc" }),
+      buildProductsUrl({
+        page: 2,
+        search: "phone",
+        sortBy: "price",
+        sortOrder: "desc",
+      }),
     ).toBe(
-      "https://dummyjson.com/products/search?q=phone&limit=10&skip=10&sortBy=title&order=desc",
+      "https://dummyjson.com/products/search?q=phone&limit=10&skip=10&sortBy=price&order=desc",
+    )
+  })
+
+  it("omits sorting when the sort order is initial", () => {
+    expect(buildProductsUrl({ sortBy: "title", sortOrder: null })).toBe(
+      "https://dummyjson.com/products?limit=10",
     )
   })
 })

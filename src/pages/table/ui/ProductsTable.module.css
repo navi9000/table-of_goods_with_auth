@@ -68,6 +68,19 @@
   background: #fff;
 }
 
+.sortableHeader {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.sortableHeader:hover {
+  color: var(--color-theme-400);
+}
+
 .table td {
   color: #232323;
   font-size: 0.9rem;

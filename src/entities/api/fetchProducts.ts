@@ -4,6 +4,7 @@ const productsUrl = "https://dummyjson.com/products"
 
 export const buildProductsUrl = (input: FetchProductParams = {}) => {
   const page = input?.page ?? 1
+  const sortBy = input?.sortBy
   const sortOrder = input?.sortOrder
   const search = input?.search
   let requestInfo = productsUrl
@@ -16,8 +17,8 @@ export const buildProductsUrl = (input: FetchProductParams = {}) => {
   if (page > 1) {
     requestInfo += `&skip=${page * 10 - 10}`
   }
-  if (sortOrder) {
-    requestInfo += `&sortBy=title&order=${sortOrder}`
+  if (sortBy && sortOrder) {
+    requestInfo += `&sortBy=${sortBy}&order=${sortOrder}`
   }
 
   return requestInfo
