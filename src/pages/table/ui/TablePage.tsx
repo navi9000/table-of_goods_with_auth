@@ -71,7 +71,7 @@ const TablePage: FC = () => {
         <div className={styles.search}>
           <Search onSearch={searchForItems} />
         </div>
-        <div>
+        <div className={styles.logout}>
           <Button onClick={onQuit}>Выйти</Button>
         </div>
       </header>

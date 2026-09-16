@@ -15,6 +15,11 @@
   overflow: auto;
 }
 
+.mobileSort,
+.mobileCards {
+  display: none;
+}
+
 .maintop {
   display: flex;
   justify-content: space-between;
@@ -132,4 +137,174 @@
 
 .danger {
   color: #dc2626;
+}
+
+@media (max-width: 1100px) and (min-width: 641px) {
+  .wrapper {
+    padding: 22px 24px 16px;
+    gap: 24px;
+  }
+
+  .table tr {
+    height: 58px;
+  }
+
+  .table th {
+    font-size: 14px;
+  }
+
+  .table td {
+    font-size: 0.8rem;
+  }
+
+  .footer {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    height: auto;
+    padding: 18px 14px 16px;
+    gap: 20px;
+  }
+
+  .maintop {
+    position: relative;
+    align-items: center;
+    gap: 12px;
+    min-height: 36px;
+  }
+
+  .tabletitle {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .maintopbuttons {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 36px;
+    align-items: center;
+  }
+
+  .maintopbuttons button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .maintopbuttons button:last-child {
+    gap: 6px;
+    padding-inline: 12px;
+  }
+
+  .maintopbuttons button:last-child :global(span) {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .tablelist {
+    overflow: visible;
+  }
+
+  .mobileSort {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: #969b9f;
+    font-size: 13px;
+  }
+
+  .mobileSort select {
+    min-width: 0;
+    max-width: 62%;
+    padding: 8px 10px;
+    border: 1px solid #ececeb;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
+    font: inherit;
+  }
+
+  .table {
+    display: none;
+  }
+
+  .mobileCards {
+    display: grid;
+    gap: 12px;
+  }
+
+  .productCard {
+    display: grid;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid #eef0f3;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .productCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .productCardHeader h3 {
+    min-width: 0;
+    color: #232323;
+    font-family: var(--font-cairo);
+    font-size: 16px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .productDetails {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+  }
+
+  .productDetails div {
+    min-width: 0;
+  }
+
+  .productDetails dt {
+    margin-bottom: 3px;
+    color: #969b9f;
+    font-size: 11px;
+  }
+
+  .productDetails dd {
+    color: #232323;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  .actions {
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  .actions button {
+    min-height: 32px;
+    font-size: 13px;
+  }
+
+  .footer {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 14px;
+  }
+
+  .pagination {
+    justify-content: space-between;
+    gap: 8px;
+  }
 }

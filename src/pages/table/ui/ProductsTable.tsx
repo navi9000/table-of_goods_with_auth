@@ -135,6 +135,24 @@ const ProductsTable: FC<ProductsTableProps> = ({
         </div>
       </div>
       <div className={styles.tablelist}>
+        <div className={styles.mobileSort}>
+          <label htmlFor="mobile-sort">Сортировка</label>
+          <select
+            id="mobile-sort"
+            value={sortBy ?? ""}
+            onChange={(event) => {
+              if (event.target.value) {
+                onSortChange(event.target.value as ProductSortField)
+              }
+            }}
+          >
+            <option value="">Без сортировки</option>
+            <option value="title">Наименование</option>
+            <option value="brand">Вендор</option>
+            <option value="rating">Оценка</option>
+            <option value="price">Цена</option>
+          </select>
+        </div>
         <table className={styles.table}>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -181,6 +199,56 @@ const ProductsTable: FC<ProductsTableProps> = ({
             ))}
           </tbody>
         </table>
+        <div className={styles.mobileCards}>
+          {table.getRowModel().rows.map((row) => (
+            <article className={styles.productCard} key={row.id}>
+              <div className={styles.productCardHeader}>
+                <InputGroup
+                  input={
+                    <Checkbox
+                      aria-label={`Выбрать ${row.original.id}`}
+                      checked={row.getIsSelected()}
+                      disabled={!row.getCanSelect()}
+                      onChange={row.getToggleSelectedHandler()}
+                    />
+                  }
+                />
+                <h3>{row.original.title}</h3>
+              </div>
+              <dl className={styles.productDetails}>
+                <div>
+                  <dt>Вендор</dt>
+                  <dd>{row.original.brand}</dd>
+                </div>
+                <div>
+                  <dt>Артикул</dt>
+                  <dd>{row.original.sku}</dd>
+                </div>
+                <div>
+                  <dt>Оценка</dt>
+                  <dd>
+                    <span
+                      className={clsx({
+                        [styles.danger]: row.original.rating < 3.5,
+                      })}
+                    >
+                      {row.original.rating.toFixed(1)}
+                    </span>
+                    /5
+                  </dd>
+                </div>
+                <div>
+                  <dt>Цена</dt>
+                  <dd>{row.original.price} ₽</dd>
+                </div>
+              </dl>
+              <div className={styles.actions}>
+                <button type="button">Изменить</button>
+                <button type="button">Удалить</button>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
       <div className={styles.footer}>
         <span>

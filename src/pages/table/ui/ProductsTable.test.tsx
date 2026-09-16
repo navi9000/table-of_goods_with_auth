@@ -1,4 +1,10 @@
-import { render, screen, within } from "@testing-library/react"
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, it, vi } from "vitest"
 import type { Product } from "@/entities/model/product"
@@ -69,5 +75,41 @@ describe("ProductsTable sorting headers", () => {
     expect(screen.getByRole("button", { name: "Вендор" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Оценка" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Цена, ₽" })).toBeInTheDocument()
+  })
+})
+
+describe("ProductsTable mobile controls", () => {
+  it("sorts from the mobile control and exposes card actions and selection", async () => {
+    cleanup()
+    const onSortChange = vi.fn()
+
+    render(
+      <ProductsTable
+        data={[product]}
+        pagination={{ page: 1, total: 1, totalPage: 1, limit: 10 }}
+        onPageChange={vi.fn()}
+        sortBy={null}
+        sortOrder={null}
+        onSortChange={onSortChange}
+      />,
+    )
+
+    expect(screen.getAllByText("Phone").length).toBeGreaterThanOrEqual(2)
+    expect(screen.getAllByText("SKU-1").length).toBeGreaterThanOrEqual(2)
+    expect(screen.getAllByLabelText("Выбрать 1").length).toBeGreaterThanOrEqual(
+      2,
+    )
+    expect(
+      screen.getAllByRole("button", { name: "Изменить" }).length,
+    ).toBeGreaterThanOrEqual(2)
+    expect(
+      screen.getAllByRole("button", { name: "Удалить" }).length,
+    ).toBeGreaterThanOrEqual(2)
+
+    fireEvent.change(screen.getByLabelText("Сортировка"), {
+      target: { value: "price" },
+    })
+
+    expect(onSortChange).toHaveBeenCalledWith("price")
   })
 })
