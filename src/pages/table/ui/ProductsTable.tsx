@@ -5,7 +5,7 @@ import {
   useTable,
 } from "@tanstack/react-table"
 import type { FC } from "react"
-import { Checkbox, InputGroup } from "@/shared/ui"
+import { Button, Checkbox, InputGroup } from "@/shared/ui"
 import styles from "./ProductsTable.module.css"
 import type { Product } from "@/entities/model/product"
 import type { ProductSortField } from "@/entities/model/product"
@@ -121,8 +121,17 @@ const ProductsTable: FC<ProductsTableProps> = ({
       <div className={styles.maintop}>
         <h2 className={styles.tabletitle}>Все позиции</h2>
         <div className={styles.maintopbuttons}>
-          <button onClick={() => table.resetRowSelection()}>Сбросить</button>
-          <button>Добавить</button>
+          <Button
+            variant="outline"
+            icon={<img src="/img/ArrowsClockwise.svg" alt="arrows" />}
+            onClick={() => table.resetRowSelection()}
+          />
+          <Button
+            size="small"
+            icon={<img src="/img/PlusCircle.svg" alt="plus" />}
+          >
+            Добавить
+          </Button>
         </div>
       </div>
       <div className={styles.tablelist}>
@@ -180,35 +189,43 @@ const ProductsTable: FC<ProductsTableProps> = ({
           <span className={styles.darker}>{pagination.total}</span>
         </span>
         <div className={styles.pagination}>
-          <button
+          <Button
+            variant="outline"
+            size="small"
             type="button"
             disabled={pagination.page === 1}
             onClick={() => onPageChange(1)}
           >
             {`<<`}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="outline"
+            size="small"
             type="button"
             disabled={pagination.page === 1}
             onClick={() => onPageChange(pagination.page - 1)}
           >
             {`<`}
-          </button>
+          </Button>
           <span>{pagination.page}</span>
-          <button
+          <Button
+            variant="outline"
+            size="small"
             type="button"
             disabled={pagination.page === pagination.totalPage}
             onClick={() => onPageChange(pagination.page + 1)}
           >
             {`>`}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="outline"
+            size="small"
             type="button"
             disabled={pagination.page === pagination.totalPage}
             onClick={() => onPageChange(pagination.totalPage)}
           >
             {`>>`}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

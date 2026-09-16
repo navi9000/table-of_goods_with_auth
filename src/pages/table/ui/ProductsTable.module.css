@@ -3,7 +3,7 @@
   min-height: 0;
   border-radius: 12px;
   background: #fff;
-  padding: 30px;
+  padding: 30px 30px 20px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -19,15 +19,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 42px;
 }
 
 .maintopbuttons {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+  height: 42px;
 }
-
 .tabletitle {
   font-size: 20px;
   line-height: 100%;
@@ -91,7 +90,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 32px 0;
   font-size: 18px;
   color: #969b9f;
   font-family: var(--font-roboto);
@@ -105,21 +103,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.pagination button {
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: #fff;
-  color: #232323;
-  cursor: pointer;
-  font: inherit;
-}
-
-.pagination button:disabled {
-  cursor: default;
-  opacity: 0.5;
 }
 
 .table th:first-child,

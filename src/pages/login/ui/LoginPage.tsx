@@ -65,18 +65,12 @@ const LoginPage: FC = () => {
                     />
                   }
                   rightSlot={
-                    <button
+                    <Button
+                      type="button"
+                      variant="icon"
+                      icon={<img src="img/close-icon.svg" alt="close" />}
                       onClick={clearUserName}
-                      style={{
-                        display: "flex",
-                        border: "none",
-                        background: "transparent",
-                        justifyContent: "flex-start",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <img src="img/close-icon.svg" alt="close" />
-                    </button>
+                    />
                   }
                   name="username"
                   placeholder="John Doe"
@@ -90,17 +84,12 @@ const LoginPage: FC = () => {
                 <Input
                   leftSlot={<img src="img/lock-icon.svg" alt="lock" />}
                   rightSlot={
-                    <button
+                    <Button
+                      type="button"
+                      variant="icon"
+                      icon={<img src="img/eye-off.svg" alt="eye" />}
                       onClick={togglePasswordInputType}
-                      style={{
-                        display: "flex",
-                        border: "none",
-                        background: "transparent",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <img src="img/eye-off.svg" alt="eye" />
-                    </button>
+                    />
                   }
                   type={passwordInputType}
                   name="password"
