@@ -17,7 +17,7 @@
     inset 0 -2px 0 1px rgba(0, 0, 0, 0.08),
     0 8px 8px 0 rgba(54, 122, 255, 0.03);
   background: #242edb;
-  border: 1px solid #367aff;
+  border: 1px solid #242edb;
   box-sizing: border-box;
   border-radius: 12px;
   padding-block: unset;
@@ -62,21 +62,24 @@
 }
 
 .button_outline {
-  display: inline-flex;
+  --btn-outline-bg: transparent;
+  --btn-outline-color: #232323;
+  --btn-outline-border-color: #ececeb;
   align-items: center;
   justify-content: center;
-  color: #232323;
-  background: transparent;
-  border: 1px solid #ececeb;
+  color: var(--btn-outline-color);
+  background: var(--btn-outline-bg);
+  border: 1px solid var(--btn-outline-border-color);
   border-radius: 8px;
   aspect-ratio: 1;
+  display: inline-flex;
 }
 
 .button_outline:hover,
 .button_selected {
-  color: #ffffff;
-  background: var(--color-theme-500);
-  border-color: var(--color-theme-500);
+  --btn-outline-bg: #242edb;
+  --btn-outline-color: #ffffff;
+  --btn-outline-border-color: #242edb;
 }
 
 .button_outline.button_small {

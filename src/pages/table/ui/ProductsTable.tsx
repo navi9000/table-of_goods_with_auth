@@ -14,6 +14,7 @@ import {
   getDisplayedProductRange,
   type ProductsPagination,
 } from "../model/products-table"
+import ArrowsIcon from "./ArrowsIcon"
 
 interface ProductsTableProps {
   data: Product[]
@@ -84,16 +85,6 @@ const columns = columnHelper.columns([
   columnHelper.accessor("price", {
     header: "Цена, ₽",
   }),
-  columnHelper.display({
-    id: "actions",
-    header: () => null,
-    cell: () => (
-      <div className={styles.actions}>
-        <button type="button">Изменить</button>
-        <button type="button">Удалить</button>
-      </div>
-    ),
-  }),
 ])
 
 const ProductsTable: FC<ProductsTableProps> = ({
@@ -123,15 +114,9 @@ const ProductsTable: FC<ProductsTableProps> = ({
         <div className={styles.maintopbuttons}>
           <Button
             variant="outline"
-            icon={<img src="/img/ArrowsClockwise.svg" alt="arrows" />}
+            icon={<ArrowsIcon />}
             onClick={() => table.resetRowSelection()}
           />
-          <Button
-            size="small"
-            icon={<img src="/img/PlusCircle.svg" alt="plus" />}
-          >
-            Добавить
-          </Button>
         </div>
       </div>
       <div className={styles.tablelist}>
@@ -242,10 +227,7 @@ const ProductsTable: FC<ProductsTableProps> = ({
                   <dd>{row.original.price} ₽</dd>
                 </div>
               </dl>
-              <div className={styles.actions}>
-                <button type="button">Изменить</button>
-                <button type="button">Удалить</button>
-              </div>
+              <div className={styles.actions}></div>
             </article>
           ))}
         </div>

@@ -79,10 +79,11 @@
   color: inherit;
   cursor: pointer;
   font: inherit;
+  transition: 300ms;
 }
 
 .sortableHeader:hover {
-  color: var(--color-theme-400);
+  color: #232323;
 }
 
 .table td {
